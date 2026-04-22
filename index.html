@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anthony Gomez, MD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf8f4;
+    --white: #ffffff;
+    --ink: #1a1814;
+    --ink2: #3d3a34;
+    --mid: #7a7670;
+    --light: #c8c4bc;
+    --rule: #e8e4de;
+    --accent: #2b5c4b;
+    --accent-light: #eef4f1;
+    --warm: #f5f0e8;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(250,248,244,0.94); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 5vw; height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 400; color: var(--ink); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); text-decoration: none; transition: color 0.2s; font-weight: 400; }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    padding: 140px 5vw 80px; max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 200px 1fr 360px; gap: 4rem;
+    align-items: center; border-bottom: 1px solid var(--rule);
+  }
+  .hero-photo {
+    width: 200px; height: 200px; border-radius: 50%;
+    object-fit: cover; object-position: center top;
+    border: 4px solid var(--white);
+    outline: 1px solid var(--rule);
+    display: block;
+  }
+  .hero-eyebrow {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); font-weight: 500; margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--accent); }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5.5vw, 5rem);
+    font-weight: 400; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 1.5rem;
+    color: var(--ink);
+  }
+  .hero-name .accent { color: var(--accent); }
+  .hero-desc { font-size: 0.975rem; color: var(--ink2); max-width: 500px; line-height: 1.9; margin-bottom: 2.5rem; font-weight: 300; }
+  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent); color: white; padding: 11px 24px; font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; text-decoration: none;
+    border-radius: 2px; transition: background 0.2s; font-family: 'Inter', sans-serif;
+  }
+  .btn-primary:hover { background: #1e4235; }
+  .btn-secondary {
+    background: transparent; color: var(--ink2); padding: 10px 24px; font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; text-decoration: none;
+    border: 1px solid var(--rule); border-radius: 2px; transition: border-color 0.2s, color 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* HERO CARD */
+  .hero-card { background: var(--white); border: 1px solid var(--rule); border-radius: 4px; padding: 1.75rem; }
+  .hero-card-row { display: flex; align-items: flex-start; gap: 14px; padding: 0.9rem 0; border-bottom: 1px solid var(--rule); }
+  .hero-card-row:first-child { padding-top: 0; }
+  .hero-card-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .hero-card-icon {
+    width: 34px; height: 34px; background: var(--accent-light); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
+  }
+  .hero-card-icon svg { width: 15px; height: 15px; stroke: var(--accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .hero-card-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); margin-bottom: 3px; font-weight: 500; }
+  .hero-card-value { font-size: 13px; color: var(--ink); font-weight: 400; line-height: 1.5; }
+  .hero-card-sub { font-size: 11px; color: var(--mid); margin-top: 2px; }
+
+  /* SECTIONS */
+  .section { max-width: 1200px; margin: 0 auto; padding: 5rem 5vw; border-bottom: 1px solid var(--rule); }
+  .section-header { display: grid; grid-template-columns: 200px 1fr; gap: 4rem; margin-bottom: 3rem; align-items: baseline; }
+  .section-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 400; line-height: 1.2; color: var(--ink); }
+  .section-body { display: grid; grid-template-columns: 200px 1fr; gap: 4rem; }
+
+  /* ABOUT */
+  .about-text { font-size: 0.95rem; color: var(--ink2); line-height: 1.9; font-weight: 300; }
+  .about-text p + p { margin-top: 1.2rem; }
+  .about-text strong { color: var(--ink); font-weight: 500; }
+  .about-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; height: fit-content; }
+  .stat { background: var(--white); padding: 1.25rem 1.5rem; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 400; color: var(--accent); line-height: 1; margin-bottom: 5px; }
+  .stat-label { font-size: 11px; color: var(--mid); line-height: 1.4; }
+
+  /* EXPERIENCE */
+  .exp-item { display: grid; grid-template-columns: 200px 1fr; gap: 4rem; padding: 2.5rem 0; border-bottom: 1px solid var(--rule); }
+  .exp-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .exp-date { font-size: 11px; color: var(--mid); letter-spacing: 0.04em; margin-bottom: 5px; }
+  .exp-location { font-size: 11px; color: var(--light); margin-bottom: 10px; }
+  .exp-badge { display: inline-block; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; padding: 3px 8px; background: var(--accent-light); color: var(--accent); border-radius: 2px; }
+  .exp-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 400; line-height: 1.3; margin-bottom: 4px; color: var(--ink); }
+  .exp-org { font-size: 12px; color: var(--accent); letter-spacing: 0.03em; margin-bottom: 1rem; font-weight: 500; }
+  .exp-bullets { list-style: none; }
+  .exp-bullets li { font-size: 13px; color: var(--mid); line-height: 1.7; padding-left: 1.2rem; position: relative; margin-bottom: 3px; font-weight: 300; }
+  .exp-bullets li::before { content: ''; position: absolute; left: 0; top: 11px; width: 5px; height: 1px; background: var(--light); }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; }
+  .skill-group { background: var(--white); padding: 1.5rem; }
+  .skill-group-title { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--rule); }
+  .skill-list { list-style: none; }
+  .skill-list li { font-size: 13px; color: var(--ink2); padding: 4px 0; border-bottom: 1px solid var(--rule); line-height: 1.4; font-weight: 300; }
+  .skill-list li:last-child { border-bottom: none; }
+
+  /* EDUCATION */
+  .edu-block { background: var(--white); border: 1px solid var(--rule); border-radius: 4px; padding: 2rem; }
+  .edu-degree { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 400; margin-bottom: 4px; color: var(--ink); }
+  .edu-school { font-size: 13px; color: var(--accent); font-weight: 500; letter-spacing: 0.03em; margin-bottom: 1rem; }
+  .edu-rank { display: inline-flex; align-items: center; gap: 8px; background: var(--accent-light); color: var(--accent); font-size: 12px; font-weight: 500; padding: 6px 14px; border-radius: 2px; margin-bottom: 1.5rem; }
+  .edu-divider { height: 1px; background: var(--rule); margin: 1.5rem 0; }
+  .edu-rotations-title { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); font-weight: 500; margin-bottom: 1.25rem; }
+  .edu-rotation-groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .edu-rotation-group-title { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); font-weight: 500; margin-bottom: 0.5rem; }
+  .edu-rotation-list { list-style: none; }
+  .edu-rotation-list li { font-size: 13px; color: var(--ink2); padding: 3px 0; border-bottom: 1px solid var(--rule); font-weight: 300; }
+  .edu-rotation-list li:last-child { border-bottom: none; }
+
+  /* FOOTER */
+  footer { max-width: 1200px; margin: 0 auto; padding: 3rem 5vw; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-left { font-size: 13px; color: var(--mid); font-weight: 300; }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); text-decoration: none; transition: color 0.2s; font-weight: 400; }
+  .footer-links a:hover { color: var(--accent); }
+
+  /* ANIMATIONS */
+  .fade-in { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; gap: 1.5rem; padding-top: 100px; }
+    .hero-photo { width: 120px; height: 120px; margin: 0 auto; }
+    .hero-card { display: none; }
+    .section-header, .section-body, .exp-item { grid-template-columns: 1fr; gap: 1.5rem; }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .edu-rotation-groups { grid-template-columns: repeat(2, 1fr); }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 560px) {
+    .skills-grid { grid-template-columns: 1fr; }
+    .edu-rotation-groups { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-name">Anthony Gomez, MD</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="mailto:anthonyvgmz@gmail.com">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <img src="photo.png" alt="Anthony Gomez, MD" class="hero-photo">
+  <div>
+    <div class="hero-eyebrow">Medical Doctor &nbsp;·&nbsp; Medical AI Training & Clinical Response Evaluation</div>
+    <h1 class="hero-name">Anthony<br><span class="accent">Gomez,</span> MD</h1>
+    <p class="hero-desc">Clinical reasoning specialist working at the intersection of medicine and artificial intelligence. I evaluate AI-generated medical responses for accuracy, safety, and clinical completeness — translating real patient experience into better AI.</p>
+    <div class="hero-ctas">
+      <a href="https://www.linkedin.com/in/anthony-gomez-md-ai/" target="_blank" class="btn-primary">LinkedIn Profile</a>
+      <a href="https://github.com/anthonygomezmd" target="_blank" class="btn-secondary">GitHub</a>
+      <a href="mailto:anthonyvgmz@gmail.com" class="btn-secondary">Contact</a>
+    </div>
+  </div>
+  <div class="hero-card">
+    <div class="hero-card-row">
+      <div class="hero-card-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+      </div>
+      <div>
+        <div class="hero-card-label">Education</div>
+        <div class="hero-card-value">MD — Universidad Xochicalco</div>
+        <div class="hero-card-sub" style="color:var(--accent);font-weight:500;">Graduated Top 5% · Ranked #4</div>
+      </div>
+    </div>
+    <div class="hero-card-row">
+      <div class="hero-card-icon">
+        <svg viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      </div>
+      <div>
+        <div class="hero-card-label">Location</div>
+        <div class="hero-card-value">Salt Lake City, Utah</div>
+        <div class="hero-card-sub">Available remotely</div>
+      </div>
+    </div>
+    <div class="hero-card-row">
+      <div class="hero-card-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+      </div>
+      <div>
+        <div class="hero-card-label">Current focus</div>
+        <div class="hero-card-value">Medical AI Training</div>
+        <div class="hero-card-sub">Clinical response evaluation</div>
+      </div>
+    </div>
+    <div class="hero-card-row">
+      <div class="hero-card-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+      </div>
+      <div>
+        <div class="hero-card-label">Languages</div>
+        <div class="hero-card-value">English · Spanish</div>
+        <div class="hero-card-sub">Medical translation certified</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <section class="section fade-in" id="about">
+    <div class="section-header">
+      <div class="section-label">About</div>
+      <h2 class="section-title">Clinician turned AI quality specialist</h2>
+    </div>
+    <div class="section-body">
+      <div class="about-stats">
+        <div class="stat">
+          <div class="stat-num">Top 5%</div>
+          <div class="stat-label">MD graduation rank</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">7+</div>
+          <div class="stat-label">Years in clinical settings</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Specialties trained in</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">2</div>
+          <div class="stat-label">Poster presentations</div>
+        </div>
+      </div>
+      <div class="about-text">
+        <p>I'm an MD with clinical experience across <strong>Mexico and U.S. healthcare settings</strong>, currently focused on the quality and safety of AI-generated medical content.</p>
+        <p>My work involves evaluating AI responses the way I would evaluate a junior clinician's reasoning — checking for <strong>missed diagnoses, unsafe recommendations, guideline misalignment, and logical gaps</strong> that a non-clinician would never catch.</p>
+        <p>I've worked in <strong>resource-limited environments</strong> where you can't order every test, in <strong>medico-legal documentation</strong> where precision is non-negotiable, and in <strong>emergency triage</strong> where speed and accuracy have to coexist. That breadth is what I bring to AI evaluation.</p>
+        <p>Currently preparing for the <strong>USMLE</strong> while actively building my practice at the intersection of medicine and AI.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section fade-in" id="experience">
+    <div class="section-header">
+      <div class="section-label">Experience</div>
+      <h2 class="section-title">Clinical and professional history</h2>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-date">Jan 2026 — Present</div>
+        <div class="exp-location">Remote · Utah, USA</div>
+        <div class="exp-badge">Current</div>
+      </div>
+      <div>
+        <div class="exp-title">Medical AI Trainer</div>
+        <div class="exp-org">Independent · Self-Employed</div>
+        <ul class="exp-bullets">
+          <li>Evaluating AI-generated medical responses for accuracy, completeness, and guideline alignment</li>
+          <li>Designing structured clinical reasoning cases across multiple specialties for AI training pipelines</li>
+          <li>Identifying hallucinations, unsafe recommendations, and reasoning errors in AI outputs</li>
+          <li>Translating complex patient scenarios into structured, machine-readable training formats</li>
+          <li>Applying differential diagnosis frameworks across Internal Medicine, Pediatrics, and Neurology</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-date">Feb 2025 — Feb 2026</div>
+        <div class="exp-location">Tijuana, Mexico</div>
+      </div>
+      <div>
+        <div class="exp-title">General Physician</div>
+        <div class="exp-org">Instituto Mexicano del Seguro Social (IMSS)</div>
+        <ul class="exp-bullets">
+          <li>High-volume primary care with 15-minute consultations across acute and chronic conditions</li>
+          <li>Rotations through emergency care, epidemiology, chronic disease management, and preventive medicine</li>
+          <li>Procedures: vaccinations, Pap smears, IUD placement/removal, subdermal contraceptive implants</li>
+          <li>Clinical reasoning applied consistently in resource-limited, high-throughput settings</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-date">Dec 2022 — Dec 2023</div>
+        <div class="exp-location">Houston, TX</div>
+      </div>
+      <div>
+        <div class="exp-title">Clinical Observership</div>
+        <div class="exp-org">International Observers of Houston</div>
+        <ul class="exp-bullets">
+          <li>Observerships across neurology, internal medicine, pediatrics, and gynecology</li>
+          <li>SOAP documentation, diagnostic evaluation, labs, imaging, and vitals interpretation</li>
+          <li>EMR workflow exposure and U.S. clinical documentation standards</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-date">Aug 2023 — Jan 2024</div>
+        <div class="exp-location">Houston, TX</div>
+      </div>
+      <div>
+        <div class="exp-title">Medical Assistant / Care Coordinator</div>
+        <div class="exp-org">St. Michael's Pain and Spine Clinics</div>
+        <ul class="exp-bullets">
+          <li>Patient intake, vitals, and detailed clinical history in a neurology-focused practice</li>
+          <li>High-detail SOAP notes for medico-legal cases used in legal proceedings and insurance evaluations</li>
+          <li>Structured clinical reasoning converting subjective complaints to objective medical findings</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-date">2016 — 2018</div>
+        <div class="exp-location">USA</div>
+      </div>
+      <div>
+        <div class="exp-title">Emergency Medical Dispatcher</div>
+        <div class="exp-org">Rescue Alert</div>
+        <ul class="exp-bullets">
+          <li>One of 4 certified Spanish medical translators for emergency dispatch calls</li>
+          <li>Rapid triage and decision-making under high-pressure, time-sensitive conditions</li>
+          <li>Certified Emergency Medical Dispatcher</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section fade-in" id="skills">
+    <div class="section-header">
+      <div class="section-label">Skills</div>
+      <h2 class="section-title">Areas of expertise</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title">Clinical</div>
+        <ul class="skill-list">
+          <li>Differential diagnosis</li>
+          <li>Clinical reasoning</li>
+          <li>SOAP documentation</li>
+          <li>Patient assessment</li>
+          <li>EMR workflows</li>
+          <li>Evidence-based medicine</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Medical AI</div>
+        <ul class="skill-list">
+          <li>AI response evaluation</li>
+          <li>Hallucination detection</li>
+          <li>Training data creation</li>
+          <li>Reasoning validation</li>
+          <li>Clinical case design</li>
+          <li>Guideline alignment</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Specialties</div>
+        <ul class="skill-list">
+          <li>Internal Medicine</li>
+          <li>Neurology</li>
+          <li>Pediatrics</li>
+          <li>Family Medicine</li>
+          <li>Emergency Medicine</li>
+          <li>Gynecology</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Other</div>
+        <ul class="skill-list">
+          <li>Bilingual — EN / ES</li>
+          <li>Medical translation</li>
+          <li>Medico-legal documentation</li>
+          <li>USMLE candidate</li>
+          <li>GitHub / Markdown</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section fade-in" id="education">
+    <div class="section-header">
+      <div class="section-label">Education</div>
+      <h2 class="section-title">Academic background</h2>
+    </div>
+    <div class="edu-block">
+      <div class="edu-degree">Doctor of Medicine (MD)</div>
+      <div class="edu-school">Universidad Xochicalco &nbsp;·&nbsp; Jun 2018 – Dec 2022</div>
+      <div class="edu-rank">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Graduated Top 5% of class · Ranked #4
+      </div>
+      <div class="edu-divider"></div>
+      <div class="edu-rotations-title">Clinical rotations</div>
+      <div class="edu-rotation-groups">
+        <div>
+          <div class="edu-rotation-group-title">Surgery & Procedures</div>
+          <ul class="edu-rotation-list">
+            <li>General Surgery</li>
+            <li>Trauma & Orthopedics</li>
+            <li>Neurosurgery</li>
+          </ul>
+        </div>
+        <div>
+          <div class="edu-rotation-group-title">Internal & Critical</div>
+          <ul class="edu-rotation-list">
+            <li>Internal Medicine</li>
+            <li>Cardiology</li>
+            <li>Pulmonology</li>
+            <li>Hematology</li>
+          </ul>
+        </div>
+        <div>
+          <div class="edu-rotation-group-title">Neurology & Senses</div>
+          <ul class="edu-rotation-list">
+            <li>Neurology</li>
+            <li>Ophthalmology</li>
+            <li>ENT (Otolaryngology)</li>
+            <li>Dermatology</li>
+          </ul>
+        </div>
+        <div>
+          <div class="edu-rotation-group-title">Primary Care</div>
+          <ul class="edu-rotation-list">
+            <li>Family Medicine</li>
+            <li>Preventive Medicine</li>
+          </ul>
+        </div>
+        <div>
+          <div class="edu-rotation-group-title">Pediatrics & OB/GYN</div>
+          <ul class="edu-rotation-list">
+            <li>Pediatrics</li>
+            <li>Gynecology</li>
+          </ul>
+        </div>
+        <div>
+          <div class="edu-rotation-group-title">Mental Health</div>
+          <ul class="edu-rotation-list">
+            <li>Psychiatry</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-left">Anthony Gomez, MD &nbsp;·&nbsp; Salt Lake City, Utah</div>
+  <div class="footer-links">
+    <a href="https://www.linkedin.com/in/anthony-gomez-md-ai/" target="_blank">LinkedIn</a>
+    <a href="https://github.com/anthonygomezmd" target="_blank">GitHub</a>
+    <a href="mailto:anthonyvgmz@gmail.com">Email</a>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
